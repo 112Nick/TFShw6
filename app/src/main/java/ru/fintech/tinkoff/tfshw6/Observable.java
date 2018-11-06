@@ -3,6 +3,7 @@ package ru.fintech.tinkoff.tfshw6;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -38,6 +39,7 @@ public final class Observable {
                 final Message msg = new Message();
                 msg.obj = result;
                 onSuccess.handleMessage(msg);
+                Log.d("Thread", String.valueOf(Thread.currentThread().getId()));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -58,6 +60,7 @@ public final class Observable {
                         Observable.this.observeOnHandler.post((new Runnable() {
                             public final void run() {
                                 onSuccess.handleMessage(msg);
+                                Log.d("Thread", String.valueOf(Thread.currentThread().getId()));
                             }
                         }));
                     } catch (Exception e) {
